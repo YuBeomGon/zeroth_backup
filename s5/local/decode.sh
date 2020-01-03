@@ -11,15 +11,19 @@
 
 decoder=$KALDI_ROOT/src/online2bin/online2-wav-nnet3-latgen-faster
 
+echo $# $0
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 1 ]; then
 	echo "Usage $0 <filename> <model-dir> <output-dir>"
 	echo "    ex: $0 test_sample/219_004_2890.flac test/models/korean/zeroth test_output"
 	exit 1
 fi
+myhome=~/kaldi/egs/zeroth/s5
 filename=$1
-srcdir=$2
-dir=$3
+#srcdir=$2
+#dir=$3
+srcdir=$myhome/test/models/korean/zeroth
+dir=$$myhome/test/results
 
 if [ ! -d $dir ]; then
     mkdir -p $dir

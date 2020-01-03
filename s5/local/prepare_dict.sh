@@ -41,6 +41,11 @@ chop; m:^([^\d]+)(\d*)$: || die "Bad phone $_";
 $phones_of{$1} .= "$_ "; }
 foreach $list (values %phones_of) {print $list . "\n"; } ' \
 	> $nonsil_phones || exit 1;
+    
+cp  $nonsil_phones $dst_dir/nonsil_tmp.txt
+rm $nonsil_phones
+sort $dst_dir/nonsil_tmp.txt > $nonsil_phones
+
 # A few extra questions that will be added to those obtained by
 # automatically clustering
 # the "real" phones.  These ask about stress; there's also one for

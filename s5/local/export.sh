@@ -3,19 +3,19 @@
 # Copyright  2017  Atlas Guide (Author : Lucas Jo)
 # Apache 2.0
 
-if [ $# -ne 1 ]; then
+if [ $# -ne 0 ]; then
 	echo "Usage: $0 <export-dir>"
 	echo " , where <export-dir> is the directory in which the whole nnet3 component is stored"
 	echo "   it can be used as a model for kaldi gstreamer server"
 	exit 1
 fi
+myhome=~/kaldi/egs/zeroth/s5
+final_graph_dir=$myhome/exp/chain_rvb/tdnn1n_rvb_online/graph_tgsmall
+final_model_dir=$myhome/exp/chain_rvb/tdnn1n_rvb_online
+small_lm=$myhome/data/lang_test_tgsmall/G.fst
+#large_lm=$myhome/data/lang_test_fglarge/G.carpa
 
-final_graph_dir=/home/ubuntu/_prjs_/zeroth/s5/exp/chain_rvb/tree_a/graph_tgsmall
-final_model_dir=/home/ubuntu/_prjs_/zeroth/s5/exp/chain_rvb/tdnn1n_rvb_online
-small_lm=/home/ubuntu/_prjs_/zeroth/s5/data/lang_test_tgsmall/G.fst
-large_lm=/home/ubuntu/_prjs_/zeroth/s5/data/lang_test_fglarge/G.carpa
-
-dir=$1/test/models/korean/zeroth
+dir=$myhome/test/models/korean/zeroth
 mkdir -p $dir
 
 # HCLG / words.txt / final.mdl

@@ -30,7 +30,8 @@ date=$(date +'%F-%H-%M')
 echo start at $date
 
 vocab=$srcdir/morphemes  # vocab for LM training
-nj=$(cat $srcdir/num_jobs)
+#nj=$(cat $srcdir/num_jobs)
+nj=1
 logdir=$srcdir/log
 
 echo 'Shuffle corpus ---------------------------------------------------------------'
@@ -67,25 +68,32 @@ txt=$srcdir/corpus
 echo 'Generate LM --------------------------------------------------------------------------'
 echo 'Perplexity test: --------------------------------------------------------------'
 echo '  text: '$txt', vocab: '$vocab
+
+# echo '  Perplexity test 2-gram '
+# ngram=2
+# ngram-count -order $ngram -unk -map-unk "<UNK>" -text $srcdir/normedCorpus.1 -lm $txt.lm.tg.arpa.gz
+	
+#ngram -order 2 -lm $txt.lm.tg.arpa.gz -ppl $txt.test
+
 echo '  Perplexity test 3-gram '
 ngram=3
-ngram-count -order $ngram -unk -map-unk "<UNK>" -vocab $vocab -text $txt.train -lm $txt.lm.tg.arpa.gz \
-	-kndiscount -interpolate
-ngram -order 3 -lm $txt.lm.tg.arpa.gz -ppl $txt.test
+ngram-count -order $ngram -unk -map-unk "<UNK>" -vocab $vocab -text $srcdir/normedCorpus.1 -lm $txt.lm.tg.arpa.gz
+# ngram -order 3 -lm $txt.lm.tg.arpa.gz -ppl $txt.test
 
-echo '  Perplexity test 4-gram '
-ngram=4
-ngram-count -order $ngram -unk -map-unk "<UNK>" -vocab $vocab -text $txt.train -lm $txt.lm.fg.arpa.gz \
-	-kndiscount	-interpolate
-ngram -order 4 -lm $txt.lm.fg.arpa.gz -ppl $txt.test
+# echo '  Perplexity test 4-gram '
+# ngram=4
+# ngram-count -order $ngram -unk -map-unk "<UNK>" -vocab $vocab -text $txt.train -lm $txt.lm.fg.arpa.gz \
+# 	-kndiscount	-interpolate
+# ngram -order 4 -lm $txt.lm.fg.arpa.gz -ppl $txt.test
 
 
 echo 'Generate pruned LM --------------------------------------------------------------------------'
-ngram -prune $prune_thresh_small -lm $txt.lm.tg.arpa.gz -write-lm $txt.lm.tgsmall.arpa.gz
+cp $txt.lm.tg.arpa.gz $txt.lm.tgsmall.arpa.gz
+#ngram -prune $prune_thresh_small -lm $txt.lm.tg.arpa.gz -write-lm $txt.lm.tgsmall.arpa.gz
 echo '  3-gram small: ' $(du -h $txt.lm.tgsmall.arpa.gz)
 
-ngram -prune $prune_thresh_medium -lm $txt.lm.tg.arpa.gz -write-lm $txt.lm.tgmed.arpa.gz
-echo '  3-gram medium: ' $(du -h $txt.lm.tgmed.arpa.gz)
+# ngram -prune $prune_thresh_medium -lm $txt.lm.tg.arpa.gz -write-lm $txt.lm.tgmed.arpa.gz
+# echo '  3-gram medium: ' $(du -h $txt.lm.tgmed.arpa.gz)
 
 echo started at $date
 date=$(date +'%F-%H-%M')

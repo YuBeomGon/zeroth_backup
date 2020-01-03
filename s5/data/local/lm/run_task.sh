@@ -47,6 +47,8 @@ if [ ! -f $srcdir/morfessor.model.pickled ]; then
 	ln -s ../../morfessor.lexicon $srcdir/morfessor.lexicon
 fi
 
+exit 1
+
 #  split corpus into similar length around 1,000,000 line
 echo 'Split corpus --------------------------------------------------------------'
 numSplitedfiles=$(find $srcdir ! -name '*.tar.gz*' ! -name '.*' ! -name 'normedCorpus*' -name "*.a*" | wc -l)

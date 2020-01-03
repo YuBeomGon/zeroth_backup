@@ -29,9 +29,9 @@ set -e
 startTime=$(date +'%F-%H-%M')
 echo "started at" $startTime
 
-# download the audio data and LMs
-# I changed download_from_openslr.sh and add argument
-local/download_from_openslr.sh $data
+# # download the audio data and LMs
+# # I changed download_from_openslr.sh and add argument
+# local/download_from_openslr.sh $data
 
 # format the data as Kaldi data directories
 for part in train_data_01 test_data_01; do
@@ -176,7 +176,7 @@ steps/align_fmllr.sh --nj $nCPU --cmd "$train_cmd" \
 
 finishTime=$(date +'%F-%H-%M')
 echo "GMM trainig is finished at" $finishTime
-exit
+#exit
 ## online chain recipe using only clean data set
 echo "#### online chain training  ###########"
 ## check point: sudo nvidia-smi --compute-mode=3 if you have multiple GPU's
